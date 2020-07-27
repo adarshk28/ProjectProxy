@@ -36,6 +36,8 @@ ap.add_argument("-r", "--recognizer", required=True,
 	help="path to model trained to recognize faces")
 ap.add_argument("-l", "--le", required=True,
 	help="path to label encoder")
+ap.add_argument("-n", "--name", required=True,
+	help="name entered while marking attendance")
 args = vars(ap.parse_args()) 
 
 # load our serialized face detector from disk
@@ -50,7 +52,7 @@ le = pickle.loads(open(args["le"], "rb").read())
 
 
 #image = cv2.imread(args["image"])
-image= align(args["image"], r'C:\Users\Trisha\Desktop\FR\face-alignment\shape_predictor_68_face_landmarks.dat')
+image= align(args["image"], 'shape_predictor_68_face_landmarks.dat')
 rgb = cv2.cvtColor(image, cv2.COLOR_BGR2RGB)
 
 # detect the (x, y)-coordinates of the bounding boxes
@@ -69,3 +71,8 @@ for encoding in encodings:
     name = le.classes_[j]
     print(name)
     print(proba*100)
+    if(name==args["name"]) and (proba*100>50):
+    	print("True")
+    else:
+    	print("False")
+
