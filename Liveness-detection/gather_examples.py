@@ -23,6 +23,7 @@ args = vars(ap.parse_args())
 vs = cv2.VideoCapture(args["input"])
 read = 0
 saved = 0
+errors = 0
 # loop over frames from the video file stream
 while True:
 	# grab the frame from the file
@@ -40,17 +41,27 @@ while True:
 
 	# pass the frame through the network and obtain the detections and
 	# predictions
+	#frame = cv2.rotate(frame, cv2.ROTATE_180)
 
 	detection = face_recognition.face_locations(frame,
 	model='hog')
 	
+	if(len(detection)!=0):
+		(top,right,bottom,left)  = detection[0]
+		
+		face = frame[top:bottom,left:right]
+		print(face)
 
-	(top,right,bottom,left)  = detection
-	face = blob[bottom:top, left:right]
-	p = os.path.sep.join([args["output"],
-			"{}.png".format(saved)])
-	cv2.imwrite(p, face)
-	saved += 1
+		p = os.path.sep.join([args["output"],
+				"{}.jpg".format(saved)])
+		if (face.size!=0):
+			cv2.imwrite(p, face)
+			saved += 1
+		else:
+			errors += 1
+			print('error')
+			print(errors)
+
 
 # do a bit of cleanup
 vs.release()
