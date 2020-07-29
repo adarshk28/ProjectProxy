@@ -40,8 +40,7 @@ ap.add_argument("-n", "--name", required=True,
 	help="name entered while marking attendance")
 args = vars(ap.parse_args()) 
 
-# load our serialized face detector from disk
-detector = dlib.get_frontal_face_detector()
+
 # load our serialized face embedding model from disk
 print("[INFO] loading face recognizer...")
 
