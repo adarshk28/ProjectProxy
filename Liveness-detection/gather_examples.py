@@ -41,16 +41,16 @@ while True:
 
 	# pass the frame through the network and obtain the detections and
 	# predictions
-	frame = cv2.rotate(frame, cv2.ROTATE_180)
+	#frame = cv2.rotate(frame, cv2.ROTATE_90_CLOCKWISE)
 
 	detection = face_recognition.face_locations(frame,
 	model='hog')
-	print(len(detection))
+	
 	if(len(detection)!=0):
 		(top,right,bottom,left)  = detection[0]
 		
 		face = frame[top:bottom,left:right]
-		print(face)
+		
 
 		p = os.path.sep.join([args["output"],
 				"{}.jpg".format(saved)])
