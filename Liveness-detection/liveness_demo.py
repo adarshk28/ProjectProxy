@@ -14,14 +14,15 @@ import face_recognition
 ap = argparse.ArgumentParser()
 ap.add_argument("-m", "--model", type=str, required=True,
 	help="path to trained model")
+ap.add_argument("-l", "--le_liveness", type=str, required=True,
+	help="path to label encoder")
 ap.add_argument("-l", "--le", type=str, required=True,
 	help="path to label encoder")
 args = vars(ap.parse_args())
 
-#python liveness_demo.py --model liveness.model --le le.pickle 
-
+#python liveness_demo.py --model liveness.model --le_liveness le.pickle--le output/le.pickle
 model = load_model(args["model"])
-le = pickle.loads(open(args["le"], "rb").read())
+le_liveness = pickle.loads(open(args["le_liveness"], "rb").read())
 # initialize the video stream and allow the camera sensor to warmup
 print("[INFO] starting video stream...")
 vs = VideoStream(src=0).start()
@@ -52,7 +53,7 @@ while True:
 		# model to determine if the face is "real" or "fake"
 		preds = model.predict(face)[0]
 		j = np.argmax(preds)
-		label = le.classes_[j]
+		label = le_liveness.classes_[j]
 		# draw the label and bounding box on the frame
 		label = "{}: {:.4f}".format(label, preds[j])
 		cv2.putText(frame, label, (left, top - 10),
@@ -66,6 +67,35 @@ while True:
     # if the `q` key was pressed, break from the loop
 	if key == ord("q"):
 		break
+	if(label=='real'):
+		recognizer = pickle.loads(open(args["recognizer"], "rb").read())
+		le = pickle.loads(open(args["le"], "rb").read())
+
+
+
+		#image = cv2.imread(args["image"])
+		image= align(face, 'shape_predictor_68_face_landmarks.dat')
+		rgb = cv2.cvtColor(image, cv2.COLOR_BGR2RGB)
+
+		# detect the (x, y)-coordinates of the bounding boxes
+		# corresponding to each face in the input image
+		boxes = face_recognition.face_locations(rgb,
+		    model='hog')
+
+		# compute the facial embedding for the face
+		encodings = face_recognition.face_encodings(rgb, boxes)
+		print(len(encodings))
+		for encoding in encodings:
+		    encoding= encoding.reshape(1,-1)
+		    preds = recognizer.predict_proba(encoding)[0]
+		    j = np.argmax(preds)
+		    proba = preds[j]
+		    name = le.classes_[j]
+		    print(name)
+		    print(proba*100)
+
+
+
 # do a bit of cleanup
 cv2.destroyAllWindows()
 vs.stop()

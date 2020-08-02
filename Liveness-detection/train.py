@@ -31,7 +31,7 @@ args = vars(ap.parse_args())
 # initialize the initial learning rate, batch size, and number of
 # epochs to train for
 INIT_LR = 1e-4
-BS = 4
+BS = 2
 EPOCHS = 100
 
 # grab the list of images in our dataset directory, then initialize
@@ -95,8 +95,8 @@ plt.style.use("ggplot")
 plt.figure()
 plt.plot(np.arange(0, EPOCHS), H.history["loss"], label="train_loss")
 plt.plot(np.arange(0, EPOCHS), H.history["val_loss"], label="val_loss")
-plt.plot(np.arange(0, EPOCHS), H.history["accuracy"], label="train_acc")
-plt.plot(np.arange(0, EPOCHS), H.history["val_accuracy"], label="val_acc")
+plt.plot(np.arange(0, EPOCHS), H.history["acc"], label="train_acc")
+plt.plot(np.arange(0, EPOCHS), H.history["val_acc"], label="val_acc")
 plt.title("Training Loss and Accuracy on Dataset")
 plt.xlabel("Epoch #")
 plt.ylabel("Loss/Accuracy")
