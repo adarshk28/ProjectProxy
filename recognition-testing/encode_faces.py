@@ -58,7 +58,8 @@ for (i, imagePath) in enumerate(imagePaths):
 
 	# align the input image and convert it from RGB (OpenCV ordering)
 	# to dlib ordering (RGB)
-	image = align(imagePath,'shape_predictor_68_face_landmarks.dat')
+	#image = align(imagePath,'shape_predictor_68_face_landmarks.dat')
+	image=cv2.imread(imagePath)
 	rgb = cv2.cvtColor(image, cv2.COLOR_BGR2RGB)
 
 	# detect the (x, y)-coordinates of the bounding boxes
