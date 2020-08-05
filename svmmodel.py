@@ -4,7 +4,7 @@ from sklearn.svm import SVC
 import argparse
 import pickle
 
-#python <filename>.py --encodings output/encodings.pickle --recognizer output/recognizer.pickle --le output/le.pickle 
+#python svmmodel.py --encodings pickles/encodings.pickle --recognizer pickles/recognizer.pickle --le pickles/le.pickle 
 
 # construct the argument parser and parse the arguments
 ap = argparse.ArgumentParser()
