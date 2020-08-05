@@ -23,6 +23,11 @@
  
  How to run -
  
+ Step 0 - run encode_faces.py -- this will encode all the images in the dataset and store the encoding in the folder 'pickles/encodings.pickle'
+ Step 1 - run svmmodel.py -- this creates an svm model and fits our dataset to the model for face recognition
+ Step 2 - run train_liveness.py -- this fits our dataset to a CNN model for liveness detection 
+ Step 3 - run projectproxy.py -- this records a small video clip and returns the name of the best match from the dataset 
+ 
  
  
  
