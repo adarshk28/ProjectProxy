@@ -16,14 +16,14 @@
  6. tensorflow
  7. keras
  8. numpy
- 9  matplotlib 
+ 9. matplotlib 
  10. os
  
  How to run -
- Step 0 - run encode_faces.py -- this will encode all the images in the dataset and store the encoding in the folder 'pickles/encodings.pickle'
- Step 1 - run svmmodel.py -- this creates an svm model and fits our dataset to the model for face recognition
- Step 2 - run train_liveness.py -- this fits our dataset to a CNN model for liveness detection 
- Step 3 - run projectproxy.py -- this records a small video clip and returns the name of the best match from the dataset 
+ 1. Step 0 - run encode_faces.py -- this will encode all the images in the dataset and store the encoding in the folder 'pickles/encodings.pickle'
+ 2. Step 1 - run svmmodel.py -- this creates an svm model and fits our dataset to the model for face recognition
+ 3. Step 2 - run train_liveness.py -- this fits our dataset to a CNN model for liveness detection 
+ 4. Step 3 - run projectproxy.py -- this records a small video clip and returns the name of the best match from the dataset 
  
  
  
